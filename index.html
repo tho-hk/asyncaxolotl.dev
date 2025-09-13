@@ -13,7 +13,8 @@
   <header>
     <h1 id="header-scene-name">Interactive Slideshow</h1>
     <div class="header-info">
-      <span id="header-player-level">Player Level: 1</span>
+      <!-- MODIFIED: Renamed ID for clarity -->
+      <span id="player-level-display">Player Level: 99</span>
     </div>
   </header>
 
@@ -27,24 +28,43 @@
     </main>
 
     <aside>
-      <h1>職涯求生！</h1>
-      <p>職涯生存</p>
-      <hr>
-      <!-- Slide content for the Exploration scene -->
-      <div id="slide-content" class="slide-panel">
-        <h2>Mission Briefing!</h2>
-        <p>Your objective is to explore the cosmos and present data in a fun, interactive way.</p>
+      <!-- NEW: Container for dynamic content from actions.js -->
+      <div id="right-panel-content">
+        <h1>職涯求生！</h1>
+        <p>職涯生存</p>
+        <hr>
       </div>
-      <!-- Slide content for the Secret Base scene -->
-      <div id="server-info-panel" class="slide-panel">
-        <h2>Server Status</h2>
-        <p>All systems are online. Data uplink is active.</p>
+
+      <!-- Slide panels for various doors -->
+      <div id="slide-boutique-door" class="slide-panel">
+        <h2>Boutique</h2>
+        <p>A trendy shop with the latest fashions.</p>
+      </div>
+      <div id="slide-locked-door" class="slide-panel">
+        <h2>Locked</h2>
+        <p>The door is locked. There's no way in.</p>
+      </div>
+      <div id="slide-fruit-shop-door" class="slide-panel">
+        <h2>Fruit Shop</h2>
+        <p>It smells of fresh fruit, but it's closed for the day.</p>
+      </div>
+      <div id="slide-coffee-shop-door" class="slide-panel">
+        <h2>Coffee Shop</h2>
+        <p>The aroma of coffee is enticing, but they're closed.</p>
+      </div>
+      <div id="slide-closed-shop-door" class="slide-panel">
+        <h2>Closed</h2>
+        <p>This shop is closed for renovations.</p>
+      </div>
+      <div id="slide-corner-store-door" class="slide-panel">
+        <h2>Corner Store</h2>
+        <p>Looks like they have a variety of goods.</p>
       </div>
     </aside>
   </div>
 
-  <!-- All JS is now loaded from external files -->
-  <script src="main.js" type="module"></script>
+  <!-- Use the new POC main.js -->
+  <script src="poc-main.js" type="module"></script>
 </body>
 
 </html>
