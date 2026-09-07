@@ -14,20 +14,6 @@ let activeTriggers = [];
 const player = { x: 0, y: 0, speed: 3, width: 32, height: 32 };
 const pressedKeys = {};
 const camera = { x: 0, y: 0, zoom: 2.6 };
-
-// Spritesheet layout (assets/images/Walk.png): 32x32 frames, columns 0-3,
-// rows: 0 = FRONT (down), 1 = BACK (up), 2 = RIGHT, 3 = LEFT.
-const animations = {
-  'idle-down':  { frameY: 0, frames: [0] }, 'walk-down':  { frameY: 0, frames: [0, 1, 2, 3] },
-  'idle-up':    { frameY: 1, frames: [0] }, 'walk-up':    { frameY: 1, frames: [0, 1, 2, 3] },
-  'idle-right': { frameY: 2, frames: [0] }, 'walk-right': { frameY: 2, frames: [0, 1, 2, 3] },
-  'idle-left':  { frameY: 3, frames: [0] }, 'walk-left':  { frameY: 3, frames: [0, 1, 2, 3] },
-};
-let currentAnimation = 'idle-down';
-let frameIndex = 0;
-let frameTimer = 0;
-const frameInterval = 150;
-
 let lastTime = 0;
 let world = { width: 0, height: 0 };
 
@@ -101,22 +87,6 @@ function gameLoop(timestamp) {
   player.y = proposedY;
   player.x = Math.max(0, Math.min(player.x, world.width - player.width));
   player.y = Math.max(0, Math.min(player.y, world.height - player.height));
-
-  // --- Sprite animation ---
-  const isMoving = dx !== 0 || dy !== 0;
-  let direction = currentAnimation.split('-')[1];
-  if (dx === -1) direction = 'left'; else if (dx === 1) direction = 'right';
-  if (dy === -1) direction = 'up'; else if (dy === 1) direction = 'down';
-  const nextAnimation = `${isMoving ? 'walk' : 'idle'}-${direction}`;
-  if (nextAnimation !== currentAnimation) { currentAnimation = nextAnimation; frameIndex = 0; frameTimer = 0; }
-  frameTimer += deltaTime;
-  if (frameTimer >= frameInterval) {
-    frameTimer -= frameInterval;
-    frameIndex = (frameIndex + 1) % animations[currentAnimation].frames.length;
-  }
-  const animData = animations[currentAnimation];
-  character.style.backgroundPosition = `-${animData.frames[frameIndex] * player.width}px -${animData.frameY * player.height}px`;
-
   character.style.left = player.x + 'px'; character.style.top = player.y + 'px';
   let targetCameraX = player.x - (gameBoard.clientWidth / camera.zoom / 2);
   let targetCameraY = player.y - (gameBoard.clientHeight / camera.zoom / 2);
